@@ -102,20 +102,20 @@ for (let i = 0; i < data.length; i++) {
 console.log('Total number of pages read: ' + numberOfPagesRead);
 
 let month = new Array(12);
-let monthBoughtCount = new Array(12);
+let monthBoughtCount = new Array(12).fill(0);
 
-// month[0] = "January";
-// month[1] = "February";
-// month[2] = "March";
-// month[3] = "April";
-// month[4] = "May";
-// month[5] = "June";
-// month[6] = "July";
-// month[7] = "August";
-// month[8] = "September";
-// month[9] = "October";
-// month[10] = "November";
-// month[11] = "December";
+month[0] = "January";
+month[1] = "February";
+month[2] = "March";
+month[3] = "April";
+month[4] = "May";
+month[5] = "June";
+month[6] = "July";
+month[7] = "August";
+month[8] = "September";
+month[9] = "October";
+month[10] = "November";
+month[11] = "December";
 
 for (let i = 0; i < data.length; i++) {
     if (data[i]["Date Bought"] != "") {
@@ -147,55 +147,175 @@ for (let i = 0; i < month.length; i++){
 // if I were to only console.log the favorite month
 console.log('Month with most books bought: ' + month[0] + ' with ' + monthBoughtCount[0] + ' books bought');
 
-const months = 12;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const months = 12;
+// const firstPurchaseYear = 2007;
+// const currentYear = new Date().getFullYear();
+// const totalYears = currentYear - firstPurchaseYear + 1;
+
+// // Initialize the 2D array
+// let monthAndYear = Array.from({ length: months }, () => Array(totalYears).fill(0));
+
+// // Populate the 2D array with the number of books bought in each month and year
+// for (let monthIndex = 0; monthIndex < months; monthIndex++) {
+//     for (let yearIndex = 0; yearIndex < totalYears; yearIndex++) {
+//         const year = firstPurchaseYear + yearIndex;
+//         const month = monthIndex + 1; // JavaScript months are 0-based, so add 1
+//         const monthYearString = `${year}-${month.toString().padStart(2, '0')}`;
+
+//         monthAndYear[monthIndex][yearIndex] = data.filter(item => {
+//             const dateBought = item['Date Bought'];
+//             return typeof dateBought === 'string' && dateBought.includes(monthYearString);
+//         }).length;
+//     }
+// }
+
+// // Debug: Print the monthAndYear array
+// console.log('monthAndYear array:', monthAndYear);
+
+// // Find the month and year with the most books bought
+// let favoriteMonthIndex = 0;
+// let favoriteYearIndex = 0;
+// let maxBooksBought = 0;
+
+// for (let monthIndex = 0; monthIndex < months; monthIndex++) {
+//     for (let yearIndex = 0; yearIndex < totalYears; yearIndex++) {
+//         if (monthAndYear[monthIndex][yearIndex] > maxBooksBought) {
+//             maxBooksBought = monthAndYear[monthIndex][yearIndex];
+//             favoriteMonthIndex = monthIndex;
+//             favoriteYearIndex = yearIndex;
+//         }
+//     }
+// }
+
+// // Debug: Print the favorite month and year indices and maxBooksBought
+// console.log('favoriteMonthIndex:', favoriteMonthIndex);
+// console.log('favoriteYearIndex:', favoriteYearIndex);
+// console.log('maxBooksBought:', maxBooksBought);
+
+// // Create an array of month names for better readability
+// const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+// console.log('Month with most books bought: ' + monthNames[favoriteMonthIndex] + ' ' + (firstPurchaseYear + favoriteYearIndex) + ' with ' + maxBooksBought + ' books bought');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// trying again because nothing worked
+
+// array index until encounter first space
+// array last index until encounter first space
+
+// OR use .include to check if month / year are in the string
+
 const firstPurchaseYear = 2007;
 const currentYear = new Date().getFullYear();
 const totalYears = currentYear - firstPurchaseYear + 1;
 
-// Initialize the 2D array
-let monthAndYear = Array.from({ length: months }, () => Array(totalYears).fill(0));
+const months = 12;
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+let specificMonth = Array.from({ length: months }, () => Array.from({ length: totalYears }, () => [0]));
 
-// Populate the 2D array with the number of books bought in each month and year
-for (let monthIndex = 0; monthIndex < months; monthIndex++) {
-    for (let yearIndex = 0; yearIndex < totalYears; yearIndex++) {
-        const year = firstPurchaseYear + yearIndex;
-        const month = monthIndex + 1; // JavaScript months are 0-based, so add 1
-        const monthYearString = `${year}-${month.toString().padStart(2, '0')}`;
-
-        monthAndYear[monthIndex][yearIndex] = data.filter(item => {
-            const dateBought = item['Date Bought'];
-            return typeof dateBought === 'string' && dateBought.includes(monthYearString);
-        }).length;
+// Populate the 3D array with month names, years, and initialize the third dimension with 0s
+for (let i = 0; i < months; i++) {
+    for (let j = 0; j < totalYears; j++) {
+        specificMonth[i][j] = [`${monthNames[i]}`, firstPurchaseYear + j, 0];
     }
 }
 
-// Debug: Print the monthAndYear array
-console.log('monthAndYear array:', monthAndYear);
+// Debug: Print the specificMonth array
+// for (let i = 0; i < months; i++) {
+//     for (let j = 0; j < totalYears; j++) {
+//         console.log(specificMonth[i][j]);
+//     }
+// }
 
-// Find the month and year with the most books bought
-let favoriteMonthIndex = 0;
-let favoriteYearIndex = 0;
-let maxBooksBought = 0;
-
-for (let monthIndex = 0; monthIndex < months; monthIndex++) {
-    for (let yearIndex = 0; yearIndex < totalYears; yearIndex++) {
-        if (monthAndYear[monthIndex][yearIndex] > maxBooksBought) {
-            maxBooksBought = monthAndYear[monthIndex][yearIndex];
-            favoriteMonthIndex = monthIndex;
-            favoriteYearIndex = yearIndex;
+// Update the number of books purchased
+for (let i = 0; i < months; i++) {
+    for (let j = 0; j < totalYears; j++) {
+        for (let k = 0; k < data.length; k++) {
+            const dateBought = data[k]['Date Bought'];
+            const monthName = monthNames[i];
+            const year = firstPurchaseYear + j;
+            if (dateBought.includes(monthName) && dateBought.includes(year.toString())) {
+                specificMonth[i][j][2]++;
+            }
         }
     }
 }
 
-// Debug: Print the favorite month and year indices and maxBooksBought
-console.log('favoriteMonthIndex:', favoriteMonthIndex);
-console.log('favoriteYearIndex:', favoriteYearIndex);
-console.log('maxBooksBought:', maxBooksBought);
+// for (let i = 0; i < months; i++) {
+//     for (let j = 0; j < totalYears; j++) {
+//         console.log(specificMonth[i][j]);
+//     }
+// }
 
-// Create an array of month names for better readability
-const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+for (let i = 0; i < months; i++) {
+    for (let j = 0; j < totalYears; j++) {
+        for (let k = 0; k < months; k++) {
+            for (let l = 0; l < totalYears; l++){
+                if (specificMonth[k][l][2] < specificMonth[i][j][2]){
+                    let temp = specificMonth[k][l];
+                    specificMonth[k][l] = specificMonth[i][j];
+                    specificMonth[i][j] = temp;
+                }
+            }
+        }
+    }
+}
 
-console.log('Month with most books bought: ' + monthNames[favoriteMonthIndex] + ' ' + (firstPurchaseYear + favoriteYearIndex) + ' with ' + maxBooksBought + ' books bought');
+console.log('Month with most books bought: ' + specificMonth[0][0][0] + ' ' + specificMonth[0][0][1] + ' with ' + specificMonth[0][0][2] + ' books bought');
 
 
 
@@ -205,6 +325,15 @@ console.log('Month with most books bought: ' + monthNames[favoriteMonthIndex] + 
 
 
 
-// fetch('./rawBooks.json')
-//     .then((response) => response.json())
-//     .then((json) => console.log(json));
+
+
+
+
+
+
+
+
+
+// // fetch('./rawBooks.json')
+// //     .then((response) => response.json())
+// //     .then((json) => console.log(json));
